@@ -1,8 +1,16 @@
+//3rd party imports
+const {Client, GatewayIntentBits, Events, Collection} = require('discord.js');
+const { MongoClient } = require("mongodb");
+
+//native imports
 const fs = require("node:fs");
 const path = require("node:path");
-const {Client, GatewayIntentBits, Events, Collection} = require('discord.js');
-const client = new Client({ intents: [GatewayIntentBits.Guilds]});
+
+//local imports
 const config = require('./config.json');
+
+
+const client = new Client({ intents: [GatewayIntentBits.Guilds]});
 
 client.commands = new Collection();
 

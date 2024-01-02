@@ -26,6 +26,11 @@ for (const folder of commandFolders) {
 
 const rest = new REST().setToken(BOT_TOKEN);
 
+// Uncomment this and put in the commandID to delete a command from the test guild
+// rest.delete(Routes.applicationGuildCommand(clientId, guildId, 'commandId'))
+// 	.then(() => console.log('Successfully deleted guild command'))
+// 	.catch(console.error);
+
 (async() => {
     try{
         console.log(`Started refreshing ${commands.length} application (/) commands.`);
