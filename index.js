@@ -1,6 +1,5 @@
 //3rd party imports
 const {Client, GatewayIntentBits, Events, Collection} = require('discord.js');
-const { MongoClient } = require("mongodb");
 
 //native imports
 const fs = require("node:fs");
@@ -9,9 +8,11 @@ const path = require("node:path");
 //local imports
 const config = require('./config.json');
 
-
+// Initialize Connections
 const client = new Client({ intents: [GatewayIntentBits.Guilds]});
 
+
+// Initialize Bot Commands
 client.commands = new Collection();
 
 const foldersPath = path.join(__dirname, 'commands');
