@@ -12,7 +12,13 @@ module.exports = {
         // Query to get leaderboard respective to users in server command was
         // issued from
         try{
-        const lb = await UserList.findAll({where: {Leaderboard_idLeaderboard:interaction.guild.id}});
+            // gets list of UserList (UserID and LeaderboardID)
+            const lb = await UserList.findAll({where: {Leaderboard_idLeaderboard:interaction.guild.id}, limit:3});
+            
+        lb.forEach(element => {
+            // query to 
+        });
+        let leaderboardString = "```"
         }// also maybe the unfunniest?
         catch(error){
             await interaction.reply("No leadboard exists for this server yet!");
