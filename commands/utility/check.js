@@ -13,16 +13,18 @@ module.exports = {
         ),
     async execute(interaction){
         const targetId = interaction.options.getUser('user');
-        console.log(targetId.id);
-        const targetUser = interaction.guild.members.fetch(targetId);
-
         // pull the user's information for the server from the database
         // display {user : rank : score}
-        const user  = await UserInfo.findOrCreate({where: { id:targetId.id} });
-        console.log(user);
-        console.log(user.score);
-
-        // await UserInfo.findOne({where: {id: target.id}})
-        await interaction.reply(`${targetId} has a score of: ${user.UserInfo.score}`);
+        const user  = await UserInfo.findOne({where: { id:targetId.id}});
+        
+        if (user == null){
+            console.log("new user!");
+            UserInfo.create({id:targetId.id});
+            const newUser = await UserInfo.findOne({where:{id:targetId.id}});
+            await interaction.reply(`${targetId} has a score of: ${newUser.score}`);
+        } else{
+            await interaction.reply(`${targetId} has a score of: ${user.score}`);
+        }
     }
 };
+// , raw : 'true', nest : 'true' 

@@ -8,6 +8,10 @@ const UserInfo = sequelize.define('UserInfo',{
     },
     score: {
         type: Sequelize.INTEGER,
+        // get(){
+        //     const curScore = this.getDataValue('score')
+        //     return curScore;
+        // },
         defaultValue: 0,
         allowNull: false
     }
