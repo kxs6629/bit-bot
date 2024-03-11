@@ -2,18 +2,23 @@ const Sequelize = require('sequelize');
 const sequelize = require('../db/data');
 
 const UserInfo = sequelize.define('UserInfo',{
-    id: {
-        type: Sequelize.STRING,
+    id:{
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
         primaryKey: true
     },
-    score: {
-        type: Sequelize.INTEGER,
-        // get(){
-        //     const curScore = this.getDataValue('score')
-        //     return curScore;
-        // },
-        defaultValue: 0,
+    guild_id:{
+        type: Sequelize.STRING,
         allowNull: false
+    },
+    user_id:{
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    score:{
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+        allowNull: false,
     }
 });
 

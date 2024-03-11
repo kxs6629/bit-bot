@@ -1,11 +1,8 @@
 const UserInfo = require('./models/UserInfo');
-const UserList = require('./models/UserList');
-const Leaderboard = require('./models/Leaderboard');
-
 // add new columns
+// UserInfo.drop();
+
 UserInfo.sync({force:true});
-UserList.sync({force:true});
-Leaderboard.sync({force:true});
 
 
 // add new columns, but not delete columns with data

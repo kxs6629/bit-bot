@@ -1,5 +1,5 @@
 //3rd party imports
-const {Client, GatewayIntentBits, Events, Collection} = require('discord.js');
+const {Client, GatewayIntentBits, Events, Collection, Partials} = require('discord.js');
 
 //native imports
 const fs = require("node:fs");
@@ -9,11 +9,17 @@ const path = require("node:path");
 const config = require('./config.json');
 
 // Initialize Connections
-const client = new Client({ intents: [GatewayIntentBits.Guilds]});
+const client = new Client({
+	intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMessageReactions],
+	partials: [Partials.Message, Partials.Channel, Partials.Reaction],
+});
 
 
 // Initialize Bot Commands
 client.commands = new Collection();
+
+// UserInfo Model for on reaction functionality
+const UserInfo = require('./models/UserInfo');
 
 const foldersPath = path.join(__dirname, 'commands');
 const commandFolders = fs.readdirSync(foldersPath);
@@ -33,9 +39,18 @@ for (const folder of commandFolders) {
 	}
 }
 
-client.once(Events.ClientReady, readyClient =>{
-    console.log(`${readyClient.user.tag} is ready to go`);
-});
+const eventsPath = path.join(__dirname,'events');
+const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
+
+for(const file of eventFiles){
+    const filePath = path.join(eventsPath,file);
+    const event = require(filePath);
+    if(event.once){
+        client.once(event.name, (...args) => event.execute(...args));
+    } else{
+        client.on(event.name, (...args) => event.execute(...args));
+    }
+}
 
 client.on(Events.InteractionCreate, async interaction => {
     if(!interaction.isChatInputCommand()) return;

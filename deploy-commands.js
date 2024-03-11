@@ -27,7 +27,7 @@ for (const folder of commandFolders) {
 const rest = new REST().setToken(BOT_TOKEN);
 
 // Uncomment this and put in the command_ID to be deleted
-// rest.delete(Routes.applicationCommand(clientId, 'commandId'))
+// rest.delete(Routes.applicationCommand( CLIENT_ID, 'commandId'))
 // 	.then(() => console.log('Successfully deleted application command'))
 // 	.catch(console.error);
 
