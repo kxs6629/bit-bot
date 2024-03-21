@@ -12,6 +12,7 @@ module.exports = {
             let leaderboardString = "```\n"
             let x = 1
             leaderboard.forEach(element => {
+                console.log(leaderboardString);
                 leaderboardString+=  `#${x}: ${interaction.guild.members.cache.get(element.user_id).displayName} | ${element.score}\n`
                 x++;
             });
